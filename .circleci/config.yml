@@ -1,0 +1,18 @@
+version: 2.1
+
+setup: true
+
+orbs:
+  continuation: circleci/continuation@0.3.1
+
+jobs:
+  build:
+    executor: continuation/default
+    steps:
+      - checkout
+      - run:
+          command: |
+            cd .circleci
+            curl -o pipeline.yml https://gist.githubusercontent.com/bufferings/f692f220b27e2e5abee525d3a63e8f8b/raw/cc4f4abb8c6248698796f4008de994617fa84d18/dynamic-config-demo02.yml
+      - continuation/continue:
+          configuration_path: .circleci/pipeline.yml
